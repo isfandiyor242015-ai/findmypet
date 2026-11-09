@@ -1,4 +1,32 @@
 
+// FINDMYPET - SUPABASE CONNECTION
+
+const SUPABASE_URL = "YOUR_PROJECT_URL";
+const SUPABASE_PUBLISHABLE_KEY = "YOUR_PUBLISHABLE_KEY";
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+// TEST DATABASE CONNECTION
+
+async function testConnection() {
+  const { data, error } = await db
+    .from("pets")
+    .select("id")
+    .limit(1);
+
+  if (error) {
+    console.error("Supabase connection error:", error.message);
+    return;
+  }
+
+  console.log("FindMyPet database connected successfully!");
+}
+
+testConnection();
+
 // FINDMYPET - MAIN JAVASCRIPT
 
 const petSearch = document.getElementById("petSearch");
