@@ -1,8 +1,8 @@
 
 // FINDMYPET - SUPABASE CONNECTION
 
-const SUPABASE_URL = "YOUR_PROJECT_URL";
-const SUPABASE_PUBLISHABLE_KEY = "YOUR_PUBLISHABLE_KEY";
+const SUPABASE_URL = "https://gxvhsebjxgilcuowtygg.supabase.co/rest/v1/";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_54Gx40NLwDRtDuUDQhqm0Q_8jp_2pa2";
 
 const db = window.supabase.createClient(
   SUPABASE_URL,
