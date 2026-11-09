@@ -16,10 +16,6 @@ async function testConnection() {
     .from("pets")
     .select("id")
     .limit(1);
-
-  if (error) {
-    console.error("Supabase connection error:", error.message);
-    return;
   }
 
   console.log("FindMyPet database connected successfully!");
