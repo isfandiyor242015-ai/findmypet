@@ -19,7 +19,6 @@ async function testConnection() {
   }
 
   console.log("FindMyPet database connected successfully!");
-}
 
 testConnection();
 
