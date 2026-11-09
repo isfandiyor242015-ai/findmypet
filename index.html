@@ -1,0 +1,253 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FindMyPet helps reunite lost pets with their families around the world.">
+  <title>FindMyPet | Every Pet Deserves a Home</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="header">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">🐾</span>
+      FindMy<span>Pet</span>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+      ☰
+    </button>
+
+    <nav class="nav" id="mainNav">
+      <a href="#home">Home</a>
+      <a href="#lost">Lost Pets</a>
+      <a href="#found">Found Pets</a>
+      <a href="#how">How It Works</a>
+    </nav>
+
+    <a href="#report" class="header-btn">Report a Pet +</a>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="eyebrow">
+          <span class="live-dot"></span>
+          A WORLDWIDE PET COMMUNITY
+        </div>
+
+        <h1>Every lost pet<br>deserves a <span>way home.</span></h1>
+
+        <p class="hero-description">
+          Helping families and communities reunite with their
+          beloved pets. Together, we can bring them home.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#lost" class="primary-btn">Find a Pet ↗</a>
+          <a href="#report" class="secondary-btn">Report a Pet +</a>
+        </div>
+
+        <div class="hero-note">
+          <span>🌍</span> Connecting pet lovers around the world
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <img
+          src="https://images.unsplash.com/photo-1552053831-71594a27632d?w=900"
+          alt="Golden retriever dog"
+        >
+        <div class="image-label">
+          <span class="label-icon">♥</span>
+          <div>
+            <strong>Every reunion matters</strong>
+            <small>Be part of the community</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="search-section">
+      <div class="search-heading">
+        <h2>Find a missing friend</h2>
+        <p>Search for lost or found pets in your area.</p>
+      </div>
+
+      <div class="search-box">
+        <div class="search-field">
+          <label for="petSearch">PET NAME OR BREED</label>
+          <input id="petSearch" type="search" placeholder="e.g. Golden Retriever">
+        </div>
+
+        <div class="search-field">
+          <label for="petLocation">LOCATION</label>
+          <input id="petLocation" type="text" placeholder="City or country">
+        </div>
+
+        <div class="search-field">
+          <label for="petType">PET TYPE</label>
+          <select id="petType">
+            <option value="all">All animals</option>
+            <option value="dog">Dogs</option>
+            <option value="cat">Cats</option>
+            <option value="other">Other animals</option>
+          </select>
+        </div>
+
+        <button class="search-btn" id="searchButton">Search →</button>
+      </div>
+    </section>
+
+    <section class="pets-section" id="lost">
+      <div class="section-top">
+        <div>
+          <span class="section-tag">HELP THEM GET HOME</span>
+          <h2>Lost & Found Pets</h2>
+          <p>Meet some example listings from our community.</p>
+        </div>
+        <a href="#report" class="view-all">Report a Pet ↗</a>
+      </div>
+
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">All Pets</button>
+        <button class="filter-btn" data-filter="lost">Lost Pets</button>
+        <button class="filter-btn" data-filter="found">Found Pets</button>
+      </div>
+
+      <div class="pet-grid" id="petGrid">
+
+        <article class="pet-card" data-status="lost" data-type="dog"
+          data-name="Max Golden Retriever" data-location="London United Kingdom">
+          <div class="pet-photo">
+            <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?w=600"
+              alt="Golden retriever">
+            <span class="status lost-status">LOST PET</span>
+          </div>
+          <div class="pet-info">
+            <div class="pet-title">
+              <h3>Max</h3>
+              <span>🐕</span>
+            </div>
+            <p>Golden Retriever · 3 years old</p>
+            <div class="pet-location">📍 London, United Kingdom</div>
+            <span class="example-label">Example listing</span>
+          </div>
+        </article>
+
+        <article class="pet-card" data-status="found" data-type="cat"
+          data-name="Luna White Cat" data-location="New York United States">
+          <div class="pet-photo">
+            <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=600"
+              alt="White and grey cat">
+            <span class="status found-status">FOUND PET</span>
+          </div>
+          <div class="pet-info">
+            <div class="pet-title">
+              <h3>Luna</h3>
+              <span>🐈</span>
+            </div>
+            <p>Domestic Cat · Unknown age</p>
+            <div class="pet-location">📍 New York, United States</div>
+            <span class="example-label">Example listing</span>
+          </div>
+        </article>
+
+        <article class="pet-card" data-status="lost" data-type="dog"
+          data-name="Charlie Beagle" data-location="Paris France">
+          <div class="pet-photo">
+            <img src="https://images.unsplash.com/photo-1505628346881-b72b27e84530?w=600"
+              alt="Beagle dog">
+            <span class="status lost-status">LOST PET</span>
+          </div>
+          <div class="pet-info">
+            <div class="pet-title">
+              <h3>Charlie</h3>
+              <span>🐶</span>
+            </div>
+            <p>Beagle · 2 years old</p>
+            <div class="pet-location">📍 Paris, France</div>
+            <span class="example-label">Example listing</span>
+          </div>
+        </article>
+
+      </div>
+
+      <p class="no-results" id="noResults" hidden>
+        No matching example listings. Try another search.
+      </p>
+    </section>
+
+    <section class="report-section" id="report">
+      <div class="report-content">
+        <span class="section-tag">BE A HERO TODAY</span>
+        <h2>Have you lost or found a pet?</h2>
+        <p>
+          Every second matters. Share an announcement and
+          help a pet find its way home.
+        </p>
+        <a href="report.html" class="primary-btn">Create an Announcement ↗</a>
+      </div>
+      <div class="report-emoji">🐕‍🦺</div>
+    </section>
+
+    <section class="how-section" id="how">
+      <div class="section-top centered">
+        <div>
+          <span class="section-tag">SIMPLE & EFFECTIVE</span>
+          <h2>How FindMyPet Works</h2>
+          <p>Three simple steps can make a big difference.</p>
+        </div>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-icon">📸</div>
+          <span class="step-number">01</span>
+          <h3>Share a Photo</h3>
+          <p>Upload a photo and information about the lost or found animal.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-icon">🌍</div>
+          <span class="step-number">02</span>
+          <h3>Spread the Word</h3>
+          <p>Let people in your area and around the world see the announcement.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-icon">❤️</div>
+          <span class="step-number">03</span>
+          <h3>Bring Them Home</h3>
+          <p>Connect through the platform and arrange a safe reunion.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="safety-note">
+      <span>🛡️</span>
+      <div>
+        <strong>Safety comes first</strong>
+        <p>Never publish your home address or private contact information in a public announcement. Arrange reunions in a safe public place.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <a href="#home" class="logo">
+      <span class="logo-icon">🐾</span>
+      FindMy<span>Pet</span>
+    </a>
+    <p>Every pet deserves to find its way home.</p>
+    <small>© 2026 FindMyPet. Built with care for animals worldwide.</small>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
