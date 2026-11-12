@@ -79,24 +79,17 @@
       <span class="logo-icon">🐾</span>
       FindMy<span>Pet</span>
     </a>
-
     <a href="index.html">← Back to Home</a>
   </header>
 
   <main class="report-page">
-
     <h1>Create an Announcement</h1>
     <p>Help a lost pet find its way home.</p>
 
     <form id="petForm">
 
       <label for="petName">Pet name</label>
-      <input
-        type="text"
-        id="petName"
-        placeholder="Pet's name"
-        required
-      >
+      <input type="text" id="petName" placeholder="Pet's name" required>
 
       <label for="petType">Pet type</label>
       <select id="petType" required>
@@ -106,27 +99,27 @@
         <option value="other">Other</option>
       </select>
 
+      <label for="petBreed">Pet breed</label>
+      <input
+        type="text"
+        id="petBreed"
+        placeholder="e.g. Golden Retriever"
+      >
+
       <label for="status">Announcement type</label>
       <select id="status" required>
         <option value="lost">Lost pet</option>
         <option value="found">Found pet</option>
       </select>
 
+      <label for="lastSeenAt">Date last seen / found</label>
+      <input type="date" id="lastSeenAt" required>
+
       <label for="country">Country</label>
-      <input
-        type="text"
-        id="country"
-        placeholder="Country"
-        required
-      >
+      <input type="text" id="country" placeholder="Country" required>
 
       <label for="city">City</label>
-      <input
-        type="text"
-        id="city"
-        placeholder="City"
-        required
-      >
+      <input type="text" id="city" placeholder="City" required>
 
       <label for="description">Description</label>
       <textarea
@@ -135,7 +128,7 @@
         required
       ></textarea>
 
-      <label for="petPhoto">Pet Photo</label>
+      <label for="petPhoto">Pet photo</label>
       <input
         type="file"
         id="petPhoto"
@@ -154,15 +147,12 @@
     </form>
 
     <p id="message" role="status"></p>
-
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script>
-    // =================================
     // SUPABASE CONNECTION
-    // =================================
 
     const SUPABASE_URL = "https://gxvhsebjxgilcuowtygg.supabase.co";
     const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_54Gx40NLwDRtDuUDQhqm0Q_8jp_2pa2";
@@ -172,9 +162,7 @@
       SUPABASE_PUBLISHABLE_KEY
     );
 
-    // =================================
-    // FORM ELEMENTS
-    // =================================
+    // ELEMENTS
 
     const form = document.getElementById("petForm");
     const message = document.getElementById("message");
@@ -182,22 +170,12 @@
     const photoInput = document.getElementById("petPhoto");
     const photoPreview = document.getElementById("photoPreview");
 
-    // =================================
     // PHOTO PREVIEW
-    // =================================
 
     photoInput.addEventListener("change", function() {
       const file = photoInput.files[0];
 
       if (!file) {
-        photoPreview.style.display = "none";
-        return;
-      }
-
-      if (file.size > 5 * 1024 * 1024) {
-        message.textContent = "Photo must be smaller than 5 MB.";
-        message.style.color = "red";
-        photoInput.value = "";
         photoPreview.style.display = "none";
         return;
       }
@@ -210,15 +188,20 @@
         return;
       }
 
+      if (file.size > 5 * 1024 * 1024) {
+        message.textContent = "Photo must be smaller than 5 MB.";
+        message.style.color = "red";
+        photoInput.value = "";
+        photoPreview.style.display = "none";
+        return;
+      }
+
       photoPreview.src = URL.createObjectURL(file);
       photoPreview.style.display = "block";
-
       message.textContent = "";
     });
 
-    // =================================
     // SUBMIT ANNOUNCEMENT
-    // =================================
 
     form.addEventListener("submit", async function(event) {
       event.preventDefault();
@@ -244,8 +227,7 @@
       let uploadedPath = null;
 
       try {
-
-        // 1. Get or create anonymous user
+        // 1. GET OR CREATE USER
 
         const { data: sessionData, error: sessionError } =
           await db.auth.getSession();
@@ -259,7 +241,6 @@
             await db.auth.signInAnonymously();
 
           if (error) throw error;
-
           user = data.user;
         }
 
@@ -267,7 +248,7 @@
           throw new Error("Could not identify user.");
         }
 
-        // 2. Upload photo
+        // 2. UPLOAD PHOTO
 
         const extension = file.type.split("/")[1] === "jpeg"
           ? "jpg"
@@ -287,7 +268,7 @@
 
         uploadedPath = filePath;
 
-        // 3. Get public photo URL
+        // 3. GET PHOTO URL
 
         const { data: photoData } = db.storage
           .from("pet-photos")
@@ -295,7 +276,7 @@
 
         const photoUrl = photoData.publicUrl;
 
-        // 4. Save announcement
+        // 4. SAVE ANNOUNCEMENT
 
         const { error: insertError } = await db
           .from("pets")
@@ -303,7 +284,9 @@
             user_id: user.id,
             pet_name: document.getElementById("petName").value.trim(),
             pet_type: document.getElementById("petType").value,
+            breed: document.getElementById("petBreed").value.trim(),
             status: document.getElementById("status").value,
+            last_seen_at: document.getElementById("lastSeenAt").value,
             country: document.getElementById("country").value.trim(),
             city: document.getElementById("city").value.trim(),
             description: document.getElementById("description").value.trim(),
@@ -312,7 +295,7 @@
 
         if (insertError) throw insertError;
 
-        // 5. Success
+        // 5. SUCCESS
 
         message.textContent =
           "Success! Your announcement and photo have been published.";
@@ -323,10 +306,8 @@
         photoPreview.style.display = "none";
 
       } catch (error) {
-
         console.error("Announcement error:", error);
 
-        // Remove uploaded photo if saving the announcement failed
         if (uploadedPath) {
           const { error: cleanupError } = await db.storage
             .from("pet-photos")
@@ -341,9 +322,7 @@
         message.style.color = "red";
 
       } finally {
-
         submitButton.disabled = false;
-
       }
     });
   </script>
