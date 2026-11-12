@@ -6,6 +6,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create Announcement | FindMyPet</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .report-page {
+      max-width: 650px;
+      margin: 50px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 16px;
+    }
+    .report-page label {
+      display: block;
+      margin-top: 16px;
+      font-weight: bold;
+    }
+    .report-page input,
+    .report-page select,
+    .report-page textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 7px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font: inherit;
+    }
+    .report-page textarea {
+      min-height: 120px;
+    }
+    .report-page button {
+      margin-top: 22px;
+      padding: 14px 22px;
+      border: none;
+      border-radius: 8px;
+      background: #f58b4b;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #message {
+      margin-top: 18px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
 
@@ -19,10 +61,10 @@
     <p>Help a lost pet find its way home.</p>
 
     <form id="petForm">
-      <label>Pet name</label>
-      <input type="text" id="petName" placeholder="Pet's name" required>
+      <label for="petName">Pet name</label>
+      <input type="text" id="petName" required>
 
-      <label>Pet type</label>
+      <label for="petType">Pet type</label>
       <select id="petType" required>
         <option value="">Choose pet type</option>
         <option value="dog">Dog</option>
@@ -30,24 +72,103 @@
         <option value="other">Other</option>
       </select>
 
-      <label>Announcement type</label>
+      <label for="status">Announcement type</label>
       <select id="status" required>
         <option value="lost">Lost pet</option>
         <option value="found">Found pet</option>
       </select>
 
-      <label>Country</label>
+      <label for="country">Country</label>
       <input type="text" id="country" required>
 
-      <label>City</label>
+      <label for="city">City</label>
       <input type="text" id="city" required>
 
-      <label>Description</label>
-      <textarea id="description" placeholder="Describe the pet..." required></textarea>
+      <label for="description">Description</label>
+      <textarea id="description" required></textarea>
 
-      <button type="submit">Submit Announcement</button>
+      <button type="submit" id="submitButton">
+        Submit Announcement
+      </button>
     </form>
+
+    <p id="message" role="status"></p>
   </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    // USE THE SAME PROJECT URL AND PUBLISHABLE KEY
+    // THAT YOU ALREADY HAVE IN script.js
+
+    const SUPABASE_URL = "YOUR_PROJECT_URL";
+    const SUPABASE_PUBLISHABLE_KEY = "YOUR_PUBLISHABLE_KEY";
+
+    const db = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
+
+    const form = document.getElementById("petForm");
+    const message = document.getElementById("message");
+    const submitButton = document.getElementById("submitButton");
+
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      submitButton.disabled = true;
+      message.textContent = "Submitting your announcement...";
+
+      try {
+        // Get an existing session or create an anonymous user.
+        let { data: sessionData, error: sessionError } =
+          await db.auth.getSession();
+
+        if (sessionError) throw sessionError;
+
+        let user = sessionData.session?.user;
+
+        if (!user) {
+          const { data, error } =
+            await db.auth.signInAnonymously();
+
+          if (error) throw error;
+          user = data.user;
+        }
+
+        // Save the announcement in Supabase.
+        const { error: insertError } = await db
+          .from("pets")
+          .insert({
+            user_id: user.id,
+            pet_name: document.getElementById("petName").value.trim(),
+            pet_type: document.getElementById("petType").value,
+            status: document.getElementById("status").value,
+            country: document.getElementById("country").value.trim(),
+            city: document.getElementById("city").value.trim(),
+            description: document.getElementById("description").value.trim()
+          });
+
+        if (insertError) throw insertError;
+
+        message.textContent =
+          "Success! Your announcement has been published.";
+
+        message.style.color = "green";
+        form.reset();
+
+      } catch (error) {
+        console.error("Announcement error:", error);
+        message.textContent =
+          "Error: " + error.message;
+
+        message.style.color = "red";
+
+      } finally {
+        submitButton.disabled = false;
+      }
+    });
+  </script>
 
 </body>
 </html>
