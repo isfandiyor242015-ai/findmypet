@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Announcement | FindMyPet</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>FindMyPet</h1>
+    <a href="index.html">← Back to Home</a>
+  </header>
+
+  <main class="report-page">
+    <h1>Create an Announcement</h1>
+    <p>Help a lost pet find its way home.</p>
+
+    <form id="petForm">
+      <label>Pet name</label>
+      <input type="text" id="petName" placeholder="Pet's name" required>
+
+      <label>Pet type</label>
+      <select id="petType" required>
+        <option value="">Choose pet type</option>
+        <option value="dog">Dog</option>
+        <option value="cat">Cat</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label>Announcement type</label>
+      <select id="status" required>
+        <option value="lost">Lost pet</option>
+        <option value="found">Found pet</option>
+      </select>
+
+      <label>Country</label>
+      <input type="text" id="country" required>
+
+      <label>City</label>
+      <input type="text" id="city" required>
+
+      <label>Description</label>
+      <textarea id="description" placeholder="Describe the pet..." required></textarea>
+
+      <button type="submit">Submit Announcement</button>
+    </form>
+  </main>
+
+</body>
+</html>
