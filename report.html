@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create Announcement | FindMyPet</title>
   <link rel="stylesheet" href="style.css">
+
   <style>
     .report-page {
       max-width: 650px;
@@ -13,12 +14,15 @@
       padding: 30px;
       background: white;
       border-radius: 16px;
+      color: #192433;
     }
+
     .report-page label {
       display: block;
       margin-top: 16px;
       font-weight: bold;
     }
+
     .report-page input,
     .report-page select,
     .report-page textarea {
@@ -30,9 +34,11 @@
       box-sizing: border-box;
       font: inherit;
     }
+
     .report-page textarea {
       min-height: 120px;
     }
+
     .report-page button {
       margin-top: 22px;
       padding: 14px 22px;
@@ -43,26 +49,54 @@
       font-weight: bold;
       cursor: pointer;
     }
+
+    .report-page button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
     #message {
       margin-top: 18px;
       font-weight: bold;
+      overflow-wrap: anywhere;
+    }
+
+    #photoPreview {
+      display: none;
+      width: 100%;
+      max-height: 280px;
+      object-fit: contain;
+      margin-top: 15px;
+      border-radius: 12px;
     }
   </style>
 </head>
+
 <body>
 
-  <header>
-    <h1>FindMyPet</h1>
+  <header class="header">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">🐾</span>
+      FindMy<span>Pet</span>
+    </a>
+
     <a href="index.html">← Back to Home</a>
   </header>
 
   <main class="report-page">
+
     <h1>Create an Announcement</h1>
     <p>Help a lost pet find its way home.</p>
 
     <form id="petForm">
+
       <label for="petName">Pet name</label>
-      <input type="text" id="petName" required>
+      <input
+        type="text"
+        id="petName"
+        placeholder="Pet's name"
+        required
+      >
 
       <label for="petType">Pet type</label>
       <select id="petType" required>
@@ -79,27 +113,56 @@
       </select>
 
       <label for="country">Country</label>
-      <input type="text" id="country" required>
+      <input
+        type="text"
+        id="country"
+        placeholder="Country"
+        required
+      >
 
       <label for="city">City</label>
-      <input type="text" id="city" required>
+      <input
+        type="text"
+        id="city"
+        placeholder="City"
+        required
+      >
 
       <label for="description">Description</label>
-      <textarea id="description" required></textarea>
+      <textarea
+        id="description"
+        placeholder="Describe the pet..."
+        required
+      ></textarea>
+
+      <label for="petPhoto">Pet Photo</label>
+      <input
+        type="file"
+        id="petPhoto"
+        accept="image/jpeg,image/png,image/webp,image/gif"
+        required
+      >
+
+      <p>Choose a clear photo. Maximum size: 5 MB.</p>
+
+      <img id="photoPreview" alt="Pet photo preview">
 
       <button type="submit" id="submitButton">
         Submit Announcement
       </button>
+
     </form>
 
     <p id="message" role="status"></p>
+
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script>
-    // USE THE SAME PROJECT URL AND PUBLISHABLE KEY
-    // THAT YOU ALREADY HAVE IN script.js
+    // =================================
+    // SUPABASE CONNECTION
+    // =================================
 
     const SUPABASE_URL = "https://gxvhsebjxgilcuowtygg.supabase.co";
     const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_54Gx40NLwDRtDuUDQhqm0Q_8jp_2pa2";
@@ -109,19 +172,82 @@
       SUPABASE_PUBLISHABLE_KEY
     );
 
+    // =================================
+    // FORM ELEMENTS
+    // =================================
+
     const form = document.getElementById("petForm");
     const message = document.getElementById("message");
     const submitButton = document.getElementById("submitButton");
+    const photoInput = document.getElementById("petPhoto");
+    const photoPreview = document.getElementById("photoPreview");
+
+    // =================================
+    // PHOTO PREVIEW
+    // =================================
+
+    photoInput.addEventListener("change", function() {
+      const file = photoInput.files[0];
+
+      if (!file) {
+        photoPreview.style.display = "none";
+        return;
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+        message.textContent = "Photo must be smaller than 5 MB.";
+        message.style.color = "red";
+        photoInput.value = "";
+        photoPreview.style.display = "none";
+        return;
+      }
+
+      if (!file.type.startsWith("image/")) {
+        message.textContent = "Please select an image.";
+        message.style.color = "red";
+        photoInput.value = "";
+        photoPreview.style.display = "none";
+        return;
+      }
+
+      photoPreview.src = URL.createObjectURL(file);
+      photoPreview.style.display = "block";
+
+      message.textContent = "";
+    });
+
+    // =================================
+    // SUBMIT ANNOUNCEMENT
+    // =================================
 
     form.addEventListener("submit", async function(event) {
       event.preventDefault();
 
+      const file = photoInput.files[0];
+
+      if (!file) {
+        message.textContent = "Please choose a pet photo.";
+        message.style.color = "red";
+        return;
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+        message.textContent = "Photo must be smaller than 5 MB.";
+        message.style.color = "red";
+        return;
+      }
+
       submitButton.disabled = true;
-      message.textContent = "Submitting your announcement...";
+      message.style.color = "#192433";
+      message.textContent = "Uploading photo and announcement...";
+
+      let uploadedPath = null;
 
       try {
-        // Get an existing session or create an anonymous user.
-        let { data: sessionData, error: sessionError } =
+
+        // 1. Get or create anonymous user
+
+        const { data: sessionData, error: sessionError } =
           await db.auth.getSession();
 
         if (sessionError) throw sessionError;
@@ -133,10 +259,44 @@
             await db.auth.signInAnonymously();
 
           if (error) throw error;
+
           user = data.user;
         }
 
-        // Save the announcement in Supabase.
+        if (!user) {
+          throw new Error("Could not identify user.");
+        }
+
+        // 2. Upload photo
+
+        const extension = file.type.split("/")[1] === "jpeg"
+          ? "jpg"
+          : file.type.split("/")[1];
+
+        const filePath =
+          user.id + "/" + crypto.randomUUID() + "." + extension;
+
+        const { error: uploadError } = await db.storage
+          .from("pet-photos")
+          .upload(filePath, file, {
+            contentType: file.type,
+            upsert: false
+          });
+
+        if (uploadError) throw uploadError;
+
+        uploadedPath = filePath;
+
+        // 3. Get public photo URL
+
+        const { data: photoData } = db.storage
+          .from("pet-photos")
+          .getPublicUrl(filePath);
+
+        const photoUrl = photoData.publicUrl;
+
+        // 4. Save announcement
+
         const { error: insertError } = await db
           .from("pets")
           .insert({
@@ -146,26 +306,44 @@
             status: document.getElementById("status").value,
             country: document.getElementById("country").value.trim(),
             city: document.getElementById("city").value.trim(),
-            description: document.getElementById("description").value.trim()
+            description: document.getElementById("description").value.trim(),
+            photo_url: photoUrl
           });
 
         if (insertError) throw insertError;
 
+        // 5. Success
+
         message.textContent =
-          "Success! Your announcement has been published.";
+          "Success! Your announcement and photo have been published.";
 
         message.style.color = "green";
+
         form.reset();
+        photoPreview.style.display = "none";
 
       } catch (error) {
-        console.error("Announcement error:", error);
-        message.textContent =
-          "Error: " + error.message;
 
+        console.error("Announcement error:", error);
+
+        // Remove uploaded photo if saving the announcement failed
+        if (uploadedPath) {
+          const { error: cleanupError } = await db.storage
+            .from("pet-photos")
+            .remove([uploadedPath]);
+
+          if (cleanupError) {
+            console.error("Photo cleanup error:", cleanupError);
+          }
+        }
+
+        message.textContent = "Error: " + error.message;
         message.style.color = "red";
 
       } finally {
+
         submitButton.disabled = false;
+
       }
     });
   </script>
