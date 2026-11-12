@@ -65,10 +65,12 @@ async function loadPets() {
 
   if (error) {
     console.error("Error loading pets:", error.message);
+
     petGrid.innerHTML = "";
     noResults.hidden = false;
     noResults.textContent =
       "Could not load announcements. Please try again later.";
+
     return;
   }
 
@@ -91,14 +93,24 @@ function createPetCard(pet) {
   const status = pet.status || "lost";
   const type = pet.pet_type || "other";
   const name = pet.pet_name || "Unnamed pet";
-  const location = [pet.city, pet.country].filter(Boolean).join(", ");
+
+  const location = [pet.city, pet.country]
+    .filter(Boolean)
+    .join(", ");
 
   card.dataset.status = status;
   card.dataset.type = type;
-  card.dataset.name = `${name} ${pet.breed || ""} ${pet.description || ""}`.toLowerCase();
+
+  card.dataset.name = (
+    name + " " +
+    (pet.breed || "") + " " +
+    (pet.description || "")
+  ).toLowerCase();
+
   card.dataset.location = location.toLowerCase();
 
-  // Photo area
+  // PHOTO
+
   const photo = document.createElement("div");
   photo.className = "pet-photo";
 
@@ -107,24 +119,33 @@ function createPetCard(pet) {
     img.src = pet.photo_url;
     img.alt = name;
     img.loading = "lazy";
+
     photo.appendChild(img);
   } else {
     const placeholder = document.createElement("div");
     placeholder.className = "pet-placeholder";
+
     placeholder.textContent =
-      type === "dog" ? "🐕" : type === "cat" ? "🐈" : "🐾";
+      type === "dog" ? "🐕" :
+      type === "cat" ? "🐈" : "🐾";
+
     photo.appendChild(placeholder);
   }
 
   const statusBadge = document.createElement("span");
+
   statusBadge.className =
-    status === "lost" ? "status lost-status" : "status found-status";
+    status === "lost"
+      ? "status lost-status"
+      : "status found-status";
+
   statusBadge.textContent =
     status === "lost" ? "LOST PET" : "FOUND PET";
 
   photo.appendChild(statusBadge);
 
-  // Information area
+  // PET INFORMATION
+
   const info = document.createElement("div");
   info.className = "pet-info";
 
@@ -135,26 +156,51 @@ function createPetCard(pet) {
   heading.textContent = name;
 
   const emoji = document.createElement("span");
+
   emoji.textContent =
-    type === "dog" ? "🐕" : type === "cat" ? "🐈" : "🐾";
+    type === "dog" ? "🐕" :
+    type === "cat" ? "🐈" : "🐾";
 
   title.appendChild(heading);
   title.appendChild(emoji);
 
   const breed = document.createElement("p");
-  breed.textContent = pet.breed || `${type} · Details not provided`;
+  breed.textContent = pet.breed || "Breed not specified";
 
   const description = document.createElement("p");
   description.textContent = pet.description || "";
 
   const place = document.createElement("div");
   place.className = "pet-location";
-  place.textContent = "📍 " + (location || "Location not provided");
+  place.textContent =
+    "📍 " + (location || "Location not provided");
+
+  // DATE
+
+  const date = document.createElement("p");
+
+  if (pet.last_seen_at) {
+    const dateValue = new Date(
+      pet.last_seen_at + "T00:00:00"
+    );
+
+    date.textContent =
+      "📅 " + dateValue.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      });
+  } else {
+    date.textContent = "📅 Date not provided";
+  }
+
+  // ADD INFORMATION TO CARD
 
   info.appendChild(title);
   info.appendChild(breed);
   info.appendChild(description);
   info.appendChild(place);
+  info.appendChild(date);
 
   card.appendChild(photo);
   card.appendChild(info);
@@ -195,8 +241,10 @@ function filterPets() {
 
     const matchesSearch = name.includes(searchText);
     const matchesLocation = location.includes(locationText);
+
     const matchesType =
       selectedType === "all" || type === selectedType;
+
     const matchesFilter =
       currentFilter === "all" || status === currentFilter;
 
@@ -216,7 +264,8 @@ function filterPets() {
   noResults.hidden = visibleCount !== 0;
 
   if (visibleCount === 0) {
-    noResults.textContent = "No matching pet announcements found.";
+    noResults.textContent =
+      "No matching pet announcements found.";
   }
 }
 
@@ -226,9 +275,9 @@ function filterPets() {
 
 filterButtons.forEach(button => {
   button.addEventListener("click", () => {
-    filterButtons.forEach(item =>
-      item.classList.remove("active")
-    );
+    filterButtons.forEach(item => {
+      item.classList.remove("active");
+    });
 
     button.classList.add("active");
     currentFilter = button.dataset.filter;
