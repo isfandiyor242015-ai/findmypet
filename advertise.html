@@ -7,161 +7,167 @@
 
   <title>Advertise With Us | FindMyPet</title>
 
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-    :root {
-      --bg: #0b1018;
-      --panel: #131b27;
-      --text: #f4f7fb;
-      --muted: #9ba9bb;
-      --accent: #b8f34b;
-      --border: #293648;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-    }
-
-    header {
-      padding: 22px 7%;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .logo {
-      color: var(--text);
-      font-size: 23px;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    .logo span {
-      color: var(--accent);
-    }
-
-    header a.back {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    .container {
-      max-width: 850px;
-      margin: 65px auto;
-      padding: 0 20px;
-    }
-
-    .intro {
+    .advertise-hero {
+      padding: 75px 9% 55px;
       text-align: center;
-      margin-bottom: 40px;
+      background: var(--cream);
     }
 
-    .intro small {
-      color: var(--accent);
-      letter-spacing: 2px;
-      font-weight: bold;
-    }
-
-    h1 {
-      font-size: clamp(34px, 6vw, 52px);
+    .advertise-hero h1 {
+      font-family: "Manrope", sans-serif;
+      color: var(--navy);
+      font-size: clamp(38px, 5vw, 58px);
       margin: 18px 0;
+      letter-spacing: -2px;
     }
 
-    .intro p {
-      color: var(--muted);
-      line-height: 1.7;
+    .advertise-hero h1 span {
+      color: var(--orange);
+    }
+
+    .advertise-hero p {
       max-width: 650px;
       margin: auto;
-    }
-
-    .benefits {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin: 35px 0;
-    }
-
-    .benefit {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      padding: 22px;
-      border-radius: 14px;
-      text-align: center;
-    }
-
-    .benefit div {
-      font-size: 30px;
-    }
-
-    .benefit h3 {
-      font-size: 16px;
-    }
-
-    .benefit p {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    form {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 30px;
-    }
-
-    form h2 {
-      margin-top: 0;
-    }
-
-    label {
-      display: block;
-      margin: 18px 0 8px;
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 14px;
-      background: #0b1018;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      color: white;
+      color: #718087;
+      line-height: 1.8;
       font-size: 15px;
     }
 
-    textarea {
-      min-height: 130px;
+    .advertise-benefits {
+      padding: 25px 9% 70px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .advertise-benefit {
+      background: white;
+      border: 1px solid var(--border);
+      padding: 30px 22px;
+      border-radius: 15px;
+      text-align: center;
+      transition: 0.25s;
+    }
+
+    .advertise-benefit:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px #172e3710;
+    }
+
+    .advertise-benefit .icon {
+      font-size: 38px;
+      margin-bottom: 15px;
+    }
+
+    .advertise-benefit h3 {
+      font-family: "Manrope", sans-serif;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+
+    .advertise-benefit p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .advertise-form-section {
+      background: #f3f0e8;
+      padding: 75px 20px;
+    }
+
+    .advertise-form-wrap {
+      max-width: 720px;
+      margin: auto;
+    }
+
+    .advertise-form-heading {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .advertise-form-heading h2 {
+      font-family: "Manrope", sans-serif;
+      color: var(--navy);
+      font-size: 34px;
+      margin: 12px 0;
+    }
+
+    .advertise-form-heading p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .advertise-form {
+      background: white;
+      padding: 38px;
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      box-shadow: 0 12px 35px #172e3709;
+    }
+
+    .advertise-form label {
+      display: block;
+      margin: 20px 0 9px;
+      color: var(--navy);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .advertise-form input,
+    .advertise-form select,
+    .advertise-form textarea {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: #fffefa;
+      color: var(--text);
+      font-family: "DM Sans", sans-serif;
+      font-size: 14px;
+    }
+
+    .advertise-form input:focus,
+    .advertise-form select:focus,
+    .advertise-form textarea:focus {
+      outline: 2px solid var(--orange);
+      border-color: var(--orange);
+    }
+
+    .advertise-form textarea {
+      min-height: 140px;
       resize: vertical;
     }
 
-    input:focus, select:focus, textarea:focus {
-      outline: 2px solid var(--accent);
-    }
-
-    button {
+    .advertise-submit {
       width: 100%;
-      margin-top: 25px;
+      margin-top: 28px;
       padding: 16px;
-      background: var(--accent);
-      color: #101610;
+      background: var(--orange);
+      color: white;
       border: none;
       border-radius: 9px;
-      font-size: 16px;
-      font-weight: bold;
+      font-size: 14px;
+      font-weight: 700;
       cursor: pointer;
+      transition: 0.2s;
     }
 
-    button:disabled {
+    .advertise-submit:hover {
+      background: #dc7540;
+      transform: translateY(-2px);
+    }
+
+    .advertise-submit:disabled {
       opacity: 0.6;
       cursor: wait;
     }
@@ -169,23 +175,26 @@
     #formMessage {
       margin-top: 18px;
       text-align: center;
-      line-height: 1.6;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      color: var(--muted);
-      border-top: 1px solid var(--border);
+      font-size: 13px;
+      line-height: 1.7;
     }
 
     @media (max-width: 650px) {
-      .benefits {
+      .advertise-benefits {
         grid-template-columns: 1fr;
+        padding: 20px 6% 50px;
       }
 
-      form {
-        padding: 20px;
+      .advertise-hero {
+        padding: 55px 6% 35px;
+      }
+
+      .advertise-form {
+        padding: 23px;
+      }
+
+      .advertise-form-heading h2 {
+        font-size: 27px;
       }
     }
   </style>
@@ -193,103 +202,180 @@
 
 <body>
 
-<header>
+<header class="header">
+
   <a href="index.html" class="logo">
-    FINDMY<span>PET</span>
+    <span class="logo-icon">🐾</span>
+    FindMy<span>Pet</span>
   </a>
 
-  <a href="index.html" class="back">
-    ← Back to Home
+  <button class="menu-toggle" id="menuToggle"
+    aria-label="Toggle navigation" aria-expanded="false">
+    ☰
+  </button>
+
+  <nav class="nav" id="mainNav">
+    <a href="index.html#home">Home</a>
+    <a href="index.html#lost">Lost Pets</a>
+    <a href="index.html#found">Found Pets</a>
+    <a href="index.html#how">How It Works</a>
+    <a href="advertise.html">Advertise With Us</a>
+  </nav>
+
+  <a href="index.html#report" class="header-btn">
+    Report a Pet +
   </a>
+
 </header>
 
-<main class="container">
+<main>
 
-  <section class="intro">
-    <small>PARTNER WITH FINDMYPET</small>
+  <section class="advertise-hero">
 
-    <h1>Advertise With Us</h1>
+    <div class="eyebrow" style="justify-content:center;">
+      <span class="live-dot"></span>
+      PARTNER WITH FINDMYPET
+    </div>
+
+    <h1>Advertise With <span>Us.</span></h1>
 
     <p>
       Connect your pet-related business with people
       who care about animals. Tell us about your
       company and advertising goals.
     </p>
+
   </section>
 
-  <section class="benefits">
+  <section class="advertise-benefits">
 
-    <div class="benefit">
-      <div>🐾</div>
+    <div class="advertise-benefit">
+      <div class="icon">🐾</div>
       <h3>Pet Community</h3>
-      <p>Reach people interested in animal care.</p>
+      <p>
+        Reach people interested in pets and animal care.
+      </p>
     </div>
 
-    <div class="benefit">
-      <div>🌍</div>
+    <div class="advertise-benefit">
+      <div class="icon">🌍</div>
       <h3>Worldwide Vision</h3>
-      <p>Build connections with a global platform.</p>
+      <p>
+        Connect your business with a growing global platform.
+      </p>
     </div>
 
-    <div class="benefit">
-      <div>🤝</div>
+    <div class="advertise-benefit">
+      <div class="icon">🤝</div>
       <h3>Partnerships</h3>
-      <p>Explore possible advertising opportunities.</p>
+      <p>
+        Explore advertising and partnership opportunities.
+      </p>
     </div>
 
   </section>
 
-  <form id="advertiserForm">
+  <section class="advertise-form-section">
 
-    <h2>Send an Advertising Request</h2>
+    <div class="advertise-form-wrap">
 
-    <label for="companyName">Company Name *</label>
-    <input id="companyName" type="text" required
-      maxlength="120" placeholder="Your company name">
+      <div class="advertise-form-heading">
+        <span class="section-tag">LET'S WORK TOGETHER</span>
+        <h2>Send Us a Request</h2>
+        <p>
+          Complete the form below and tell us how
+          you would like to work with FindMyPet.
+        </p>
+      </div>
 
-    <label for="contactName">Contact Person *</label>
-    <input id="contactName" type="text" required
-      maxlength="120" placeholder="Your name">
+      <form class="advertise-form" id="advertiserForm">
 
-    <label for="email">Business Email *</label>
-    <input id="email" type="email" required
-      maxlength="254" placeholder="you@company.com">
+        <label for="companyName">Company Name *</label>
+        <input
+          id="companyName"
+          type="text"
+          required
+          maxlength="120"
+          placeholder="Your company name"
+        >
 
-    <label for="website">Company Website</label>
-    <input id="website" type="url"
-      maxlength="500" placeholder="https://example.com">
+        <label for="contactName">Contact Person *</label>
+        <input
+          id="contactName"
+          type="text"
+          required
+          maxlength="120"
+          placeholder="Your name"
+        >
 
-    <label for="advertisingType">Advertising Type *</label>
-    <select id="advertisingType" required>
-      <option value="">Choose an option</option>
-      <option value="Banner advertisement">Banner advertisement</option>
-      <option value="Sponsored listing">Sponsored listing</option>
-      <option value="Brand partnership">Brand partnership</option>
-      <option value="Other">Other</option>
-    </select>
+        <label for="email">Business Email *</label>
+        <input
+          id="email"
+          type="email"
+          required
+          maxlength="254"
+          placeholder="you@company.com"
+        >
 
-    <label for="message">Tell Us About Your Idea *</label>
-    <textarea id="message" required maxlength="2000"
-      placeholder="Describe your company and advertising goals..."></textarea>
+        <label for="website">Company Website</label>
+        <input
+          id="website"
+          type="url"
+          maxlength="500"
+          placeholder="https://example.com"
+        >
 
-    <button type="submit" id="submitButton">
-      Send Advertising Request →
-    </button>
+        <label for="advertisingType">Advertising Type *</label>
+        <select id="advertisingType" required>
+          <option value="">Choose an option</option>
+          <option value="Banner advertisement">Banner advertisement</option>
+          <option value="Sponsored listing">Sponsored listing</option>
+          <option value="Brand partnership">Brand partnership</option>
+          <option value="Other">Other</option>
+        </select>
 
-    <p id="formMessage" role="status"></p>
+        <label for="message">Tell Us About Your Idea *</label>
+        <textarea
+          id="message"
+          required
+          maxlength="2000"
+          placeholder="Describe your company and advertising goals..."
+        ></textarea>
 
-  </form>
+        <button
+          type="submit"
+          class="advertise-submit"
+          id="submitButton"
+        >
+          Send Advertising Request →
+        </button>
+
+        <p id="formMessage" role="status"></p>
+
+      </form>
+
+    </div>
+
+  </section>
 
 </main>
 
-<footer>
-  FindMyPet · Connecting pets with people
+<footer class="footer">
+
+  <a href="index.html" class="logo">
+    🐾 FindMy<span>Pet</span>
+  </a>
+
+  <p>Helping lost pets find their way home.</p>
+
+  <small>© 2026 FindMyPet. All rights reserved.</small>
+
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-  // USE THE SAME SUPABASE DETAILS AS YOUR OTHER FILES
+  // KEEP YOUR EXISTING SUPABASE DETAILS HERE
 
   const SUPABASE_URL = "https://gxvhsebjxgilcuowtygg.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_54Gx40NLwDRtDuUDQhqm0Q_8jp_2pa2";
@@ -333,7 +419,7 @@
       formMessage.textContent =
         "Thank you! Your advertising request has been submitted.";
 
-      formMessage.style.color = "#b8f34b";
+      formMessage.style.color = "#456747";
 
     } catch (error) {
       console.error("Advertising request error:", error);
@@ -341,12 +427,24 @@
       formMessage.textContent =
         "Sorry, your request could not be sent. Please try again.";
 
-      formMessage.style.color = "#ff7777";
+      formMessage.style.color = "#dc5545";
 
     } finally {
       submitButton.disabled = false;
       submitButton.textContent = "Send Advertising Request →";
     }
+  });
+
+  // MOBILE MENU
+
+  const menuToggle = document.getElementById("menuToggle");
+  const mainNav = document.getElementById("mainNav");
+
+  menuToggle.addEventListener("click", () => {
+    const isOpen = mainNav.classList.toggle("open");
+
+    menuToggle.setAttribute("aria-expanded", isOpen);
+    menuToggle.textContent = isOpen ? "✕" : "☰";
   });
 </script>
 
