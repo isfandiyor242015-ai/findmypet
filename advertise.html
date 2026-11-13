@@ -1,0 +1,354 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Advertise With Us | FindMyPet</title>
+
+  <style>
+    :root {
+      --bg: #0b1018;
+      --panel: #131b27;
+      --text: #f4f7fb;
+      --muted: #9ba9bb;
+      --accent: #b8f34b;
+      --border: #293648;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      padding: 22px 7%;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      color: var(--text);
+      font-size: 23px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    header a.back {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 65px auto;
+      padding: 0 20px;
+    }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .intro small {
+      color: var(--accent);
+      letter-spacing: 2px;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-size: clamp(34px, 6vw, 52px);
+      margin: 18px 0;
+    }
+
+    .intro p {
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 650px;
+      margin: auto;
+    }
+
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin: 35px 0;
+    }
+
+    .benefit {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 22px;
+      border-radius: 14px;
+      text-align: center;
+    }
+
+    .benefit div {
+      font-size: 30px;
+    }
+
+    .benefit h3 {
+      font-size: 16px;
+    }
+
+    .benefit p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    form {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 30px;
+    }
+
+    form h2 {
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      margin: 18px 0 8px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 14px;
+      background: #0b1018;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      color: white;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid var(--accent);
+    }
+
+    button {
+      width: 100%;
+      margin-top: 25px;
+      padding: 16px;
+      background: var(--accent);
+      color: #101610;
+      border: none;
+      border-radius: 9px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
+    #formMessage {
+      margin-top: 18px;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 650px) {
+      .benefits {
+        grid-template-columns: 1fr;
+      }
+
+      form {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html" class="logo">
+    FINDMY<span>PET</span>
+  </a>
+
+  <a href="index.html" class="back">
+    ← Back to Home
+  </a>
+</header>
+
+<main class="container">
+
+  <section class="intro">
+    <small>PARTNER WITH FINDMYPET</small>
+
+    <h1>Advertise With Us</h1>
+
+    <p>
+      Connect your pet-related business with people
+      who care about animals. Tell us about your
+      company and advertising goals.
+    </p>
+  </section>
+
+  <section class="benefits">
+
+    <div class="benefit">
+      <div>🐾</div>
+      <h3>Pet Community</h3>
+      <p>Reach people interested in animal care.</p>
+    </div>
+
+    <div class="benefit">
+      <div>🌍</div>
+      <h3>Worldwide Vision</h3>
+      <p>Build connections with a global platform.</p>
+    </div>
+
+    <div class="benefit">
+      <div>🤝</div>
+      <h3>Partnerships</h3>
+      <p>Explore possible advertising opportunities.</p>
+    </div>
+
+  </section>
+
+  <form id="advertiserForm">
+
+    <h2>Send an Advertising Request</h2>
+
+    <label for="companyName">Company Name *</label>
+    <input id="companyName" type="text" required
+      maxlength="120" placeholder="Your company name">
+
+    <label for="contactName">Contact Person *</label>
+    <input id="contactName" type="text" required
+      maxlength="120" placeholder="Your name">
+
+    <label for="email">Business Email *</label>
+    <input id="email" type="email" required
+      maxlength="254" placeholder="you@company.com">
+
+    <label for="website">Company Website</label>
+    <input id="website" type="url"
+      maxlength="500" placeholder="https://example.com">
+
+    <label for="advertisingType">Advertising Type *</label>
+    <select id="advertisingType" required>
+      <option value="">Choose an option</option>
+      <option value="Banner advertisement">Banner advertisement</option>
+      <option value="Sponsored listing">Sponsored listing</option>
+      <option value="Brand partnership">Brand partnership</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <label for="message">Tell Us About Your Idea *</label>
+    <textarea id="message" required maxlength="2000"
+      placeholder="Describe your company and advertising goals..."></textarea>
+
+    <button type="submit" id="submitButton">
+      Send Advertising Request →
+    </button>
+
+    <p id="formMessage" role="status"></p>
+
+  </form>
+
+</main>
+
+<footer>
+  FindMyPet · Connecting pets with people
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  // USE THE SAME SUPABASE DETAILS AS YOUR OTHER FILES
+
+  const SUPABASE_URL = "";
+  const SUPABASE_PUBLISHABLE_KEY = "";
+
+  const db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+  const form = document.getElementById("advertiserForm");
+  const submitButton = document.getElementById("submitButton");
+  const formMessage = document.getElementById("formMessage");
+
+  form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Sending...";
+    formMessage.textContent = "";
+
+    const request = {
+      company_name: document.getElementById("companyName").value.trim(),
+      contact_name: document.getElementById("contactName").value.trim(),
+      email: document.getElementById("email").value.trim(),
+      website: document.getElementById("website").value.trim() || null,
+      advertising_type: document.getElementById("advertisingType").value,
+      message: document.getElementById("message").value.trim()
+    };
+
+    try {
+      const { error } = await db
+        .from("advertiser_requests")
+        .insert([request]);
+
+      if (error) {
+        throw error;
+      }
+
+      form.reset();
+
+      formMessage.textContent =
+        "Thank you! Your advertising request has been submitted.";
+
+      formMessage.style.color = "#b8f34b";
+
+    } catch (error) {
+      console.error("Advertising request error:", error);
+
+      formMessage.textContent =
+        "Sorry, your request could not be sent. Please try again.";
+
+      formMessage.style.color = "#ff7777";
+
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = "Send Advertising Request →";
+    }
+  });
+</script>
+
+</body>
+</html>
