@@ -29,6 +29,23 @@ const mainNav = document.getElementById("mainNav");
 
 let allPets = [];
 let currentFilter = "all";
+let currentUserId = null;
+
+// ==========================================
+// GET CURRENT USER
+// ==========================================
+
+async function getCurrentUser() {
+  const { data, error } = await db.auth.getUser();
+
+  if (error) {
+    console.log("User session not found:", error.message);
+    currentUserId = null;
+    return;
+  }
+
+  currentUserId = data.user ? data.user.id : null;
+}
 
 // ==========================================
 // MOBILE MENU
@@ -57,6 +74,8 @@ if (menuToggle && mainNav) {
 async function loadPets() {
   petGrid.innerHTML = "<p>Loading announcements...</p>";
 
+  await getCurrentUser();
+
   const { data, error } = await db
     .from("pets")
     .select("*")
@@ -80,6 +99,45 @@ async function loadPets() {
   filterPets();
 
   console.log("FindMyPet database connected successfully!");
+}
+
+// ==========================================
+// DELETE PET
+// ==========================================
+
+async function deletePet(pet, button) {
+  const confirmed = confirm(
+    `Are you sure you want to delete the announcement for ${pet.pet_name || "this pet"}?`
+  );
+
+  if (!confirmed) return;
+
+  button.disabled = true;
+  button.textContent = "Deleting...";
+
+  const { error } = await db
+    .from("pets")
+    .delete()
+    .eq("id", pet.id)
+    .eq("user_id", currentUserId);
+
+  if (error) {
+    console.error("Delete error:", error.message);
+
+    alert("Could not delete the announcement. Please try again.");
+
+    button.disabled = false;
+    button.textContent = "🗑 Delete";
+
+    return;
+  }
+
+  allPets = allPets.filter(item => item.id !== pet.id);
+
+  renderPets(allPets);
+  filterPets();
+
+  alert("Announcement deleted successfully!");
 }
 
 // ==========================================
@@ -194,13 +252,38 @@ function createPetCard(pet) {
     date.textContent = "📅 Date not provided";
   }
 
-  // ADD INFORMATION TO CARD
+  // ADD INFORMATION
 
   info.appendChild(title);
   info.appendChild(breed);
   info.appendChild(description);
   info.appendChild(place);
   info.appendChild(date);
+
+  // DELETE BUTTON - ONLY OWNER
+
+  if (currentUserId && pet.user_id === currentUserId) {
+    const deleteButton = document.createElement("button");
+
+    deleteButton.type = "button";
+    deleteButton.className = "pet-delete-btn";
+    deleteButton.textContent = "🗑 Delete";
+
+    deleteButton.style.marginTop = "15px";
+    deleteButton.style.padding = "10px 16px";
+    deleteButton.style.border = "none";
+    deleteButton.style.borderRadius = "8px";
+    deleteButton.style.background = "#dc3545";
+    deleteButton.style.color = "#ffffff";
+    deleteButton.style.cursor = "pointer";
+    deleteButton.style.fontWeight = "bold";
+
+    deleteButton.addEventListener("click", () => {
+      deletePet(pet, deleteButton);
+    });
+
+    info.appendChild(deleteButton);
+  }
 
   card.appendChild(photo);
   card.appendChild(info);
